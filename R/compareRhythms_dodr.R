@@ -52,8 +52,7 @@ compareRhythms_dodr <- function(expr, exp_design, period=24, rhythm_fdr = 0.05,
                                        ifelse(any(names(unique_times_B) == t),
                                               unique_times_B[names(unique_times_B) == t],
                                               0)
-                                     },
-                                     integer(1))
+                                     })
 
 
   expr_A <- expr[, exp_design_A$col_number]
