@@ -47,7 +47,7 @@ compareRhythms_dodr <- function(expr, exp_design, period=24, rhythm_fdr = 0.05,
 
   unique_times_B <- base::table(exp_design_B$time)
 
-  measure_sequence_B <- base::vapply(time_B,
+  measure_sequence_B <- base::sapply(time_B,
                                      function(t) {
                                        ifelse(any(names(unique_times_B) == t),
                                               unique_times_B[names(unique_times_B) == t],
