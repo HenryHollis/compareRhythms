@@ -74,6 +74,14 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
   results <- compute_model_params(fit_coeffs, group_id, type = "coef")
 
   results <- data.frame(results)
+                   
+ if ("batch" %in% colnames(exp_design)) {
+        batch_offset_name = levels(exp_design$batch)[2]
+        results$tmp_col = unname(unlist(fit_coeffs[, 3]))
+        View(results)
+        colnames(results)[which(colnames(results) == "tmp_col")] = paste0("batch_offset", 
+            batch_offset_name)
+    }
 
   results$id <- rownames(results)
 
