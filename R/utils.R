@@ -25,9 +25,9 @@ compute_model_params <- function(y, group_id, d=NULL, type="fit") {
     coeffs <- y
   }
 
-  if (any(base::grepl(paste0(group_id[1], "_"),
+  if (any(base::grepl(paste0(group_id[1], "_"), #if "N_" is in the colnames of coeffs... 
                       colnames(coeffs)))) {
-    rhy_params <- coeffs[, base::paste(group_id[1],
+    rhy_params <- coeffs[, base::paste(group_id[1],               #select N_inphase and N_outphase cols
                                        c("inphase", "outphase"),
                                        sep = "_"), drop=FALSE]
     amps_A <- 2 * sqrt(base::rowSums(rhy_params^2))
