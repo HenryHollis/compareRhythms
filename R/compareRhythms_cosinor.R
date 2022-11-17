@@ -58,7 +58,8 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
     }, FUN.VALUE = double(6L))
 
   }
-
+  #fit coefficients come from lm1: x~ I + I*cos(t) + I*sin(t)
+  # so dataframe of coefficients N, APP, N_cos, APP_cos, N_sin, APP_sin
   fit_coeffs <- t(fit_coeffs)
   rownames(fit_coeffs) <- rownames(data)
 
