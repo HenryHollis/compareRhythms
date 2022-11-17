@@ -70,7 +70,8 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
 
   names(rhythmic_in_either) <- rownames(data)
 
-  adj_pval <- p.adjust(rhythmic_in_either, method = "fdr")
+  adj_pval <- p.adjust(rhythmic_in_either, method = "fdr") #adjustment made for all genes, not just the subset that are
+                                                           #rhythmic in either condition
 
   results <- compute_model_params(fit_coeffs, group_id, type = "coef")
 
