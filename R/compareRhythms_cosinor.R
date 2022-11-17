@@ -96,6 +96,7 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
 
   results$adj_p_val_A_or_B <- adj_pval
 
+  #only return the genes where adj_p_A_or_B < 0.05 and where at least one has amplitude > cutoff.
   results <- results[(results$adj_p_val_A_or_B < rhythm_fdr) &
                       (results$max_amp >= amp_cutoff), ]
 
