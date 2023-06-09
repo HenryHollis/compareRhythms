@@ -54,21 +54,21 @@ The different approaches can be divided into model selection and the rest that a
     
     <u>Use cases</u>: This method can be used on any normalized data. Technically, the assumption that the noise/errors is/are normal at each sample and independent needs to be acceptable.
     
-2. **DODR** (`method = "dodr"`)
+<!-- 2. **DODR** (`method = "dodr"`)
 : Rhythmic features in either group are first identified using [rain](https://doi.org/doi:10.18129/B9.bioc.rain) followed by filtering by rhythm amplitude (`amp_cutoff`). The resulting subset of features are processed using [DODR](https://cran.r-project.org/package=DODR) [@thaben_differential_2016], an R package to find the differentially rhythmic features. The features are classified after the fact into the 4 categories listed above.
     + `rhythm_fdr` is the threshold for pre-filtering rhythmic features in either group based on the multiple testing corrected p-value from rain.
     + `compare_fdr` is the threshold for selecting differentially rhythmic features using the multiple testing corrected p-values from DODR.
     
     <u>Use cases</u>: This method can be used on any normalized data.
-
-3. **limma** (`method = "limma"`)
+ -->
+<!-- 3. **limma** (`method = "limma"`)
 : This is an implementation of **DODR** using the linear modeling approach for microarrays in [limma](https://doi.org/doi:10.18129/B9.bioc.limma) [@ritchie_limma_2015]. The analysis follows the same steps with the difference that the filtering for rhythmic features in either group can be accomplished in a single test and differential rhythmicity test is also achieved in the same framework by comparing rhythm parameters (amplitude and phase).
     + `rhythm_fdr` is the threshold for pre-filtering rhythmic features in either group based on the multiple testing corrected p-value.
     + `compare_fdr` is the threshold for selecting differentially rhythmic features using the multiple testing corrected p-values
     + `robust` is a boolean to make the noise estimates for individual features in limma robust against outliers (see `eBayes` in [limma](https://doi.org/doi:10.18129/B9.bioc.limma) for details).
     
     <u>Use cases</u>: This method is to be used only on log normalized microarray data (see limma for details).
-
+ -->
 4. **voom** (`method = "voom"`)
 : This is a variation of **limma** to also process RNA-seq data with the same pipeline. Count data are preprocessed using `voom` and then analyzed using the **limma** method above.
     + `rhythm_fdr` (see **limma**)
@@ -192,7 +192,7 @@ head(results)
 ```
 The amplitude is the units of the data (for this method) and phase is in radians. To get the phase in h, multiply the phase estimates by `period/(2*pi)`.
 
-Next, we analyze the data using the *DODR* method. We only show entire results (with `just_classify = FALSE`) for simplicity.
+<!-- Next, we analyze the data using the *DODR* method. We only show entire results (with `just_classify = FALSE`) for simplicity.
 ```{r ma-dodr}
 results <- compareRhythms(expr_filtered, exp_design = exp_design, period = 24, 
                           method = "dodr", just_classify = FALSE) # run with default parameters
@@ -209,7 +209,7 @@ head(results)
 table(results$category)   # number of genes in the different categories
 ```
 The returned columns are similar to that from *DODR* (as they are both based on the same hypothesis testing approach). The only difference is that the test for rhythmicity in either group can performed using a single test, whose adjusted p-value is returned. The differential rhythmicity test compares circadian parameters (as coefficients of a harmonic regression) between the two groups. The boolean columns are constructed (as before) using these p-values. Moreover, due to the similarity of approaches the results of the analyses are very similar.
-
+ -->
 We can also vary the parameters `amp_cutoff`, `compare_fdr` and `rhythm_fdr` as necessary.
 ```{r ma-limma-2}
 results <- compareRhythms(expr_filtered, exp_design = exp_design, period = 24, 
