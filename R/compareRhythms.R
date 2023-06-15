@@ -48,7 +48,7 @@
 #'
 #' @export
 compareRhythms <- function(data, exp_design, lengths=NULL,
-                           method = "mod_sel", period=24, rhythm_fdr = 0.05,
+                           method = "mod_sel", period=24, rhythm_fdr = 0.05, rhythm_bonf_cutoff = 0.05,
                            compare_fdr = 0.05, amp_cutoff = 0.5,
                            criterion = "bic", schwarz_wt_cutoff = 0.6,
                            just_classify = TRUE, robust = TRUE, outliers = FALSE,
@@ -71,6 +71,8 @@ compareRhythms <- function(data, exp_design, lengths=NULL,
     period > 0,
     assertthat::is.number(rhythm_fdr),
     rhythm_fdr <= 1.0 & rhythm_fdr >= 0,
+    assertthat::is.number(rhythm_bonf_cutoff),
+    rhythm_bonf_cutoff <= 1.0 & rhythm_bonf_cutoff >= 0,
     assertthat::is.number(compare_fdr),
     compare_fdr <= 1.0 & compare_fdr >= 0,
     assertthat::is.number(amp_cutoff),
@@ -145,7 +147,7 @@ compareRhythms <- function(data, exp_design, lengths=NULL,
                                        amp_cutoff = amp_cutoff, compare_fdr = compare_fdr,
                                        just_classify = just_classify),
           cosinor = compareRhythms_cosinor(data = data, exp_design = exp_design, period = period,
-                                           rhythm_fdr = rhythm_fdr, compare_fdr = compare_fdr,
+                                           rhythm_bonf_cutoff = rhythm_bonf_cutoff, compare_fdr = compare_fdr,
                                            amp_cutoff = amp_cutoff, just_classify = just_classify,
                                            longitudinal = longitudinal)
   )
