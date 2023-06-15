@@ -5,7 +5,7 @@
 #' @keywords internal
 #' @export
 
-compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
+compareRhythms_cosinor <- function(data, exp_design, period, rhythm_bonf_cutoff,
                                  compare_fdr, amp_cutoff, just_classify, longitudinal) {
 
   group_id <- base::levels(exp_design$group)
@@ -99,7 +99,7 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
   results$bonf_adj_p_val_A_or_B <- p.adjust(rhythmic_in_either, method = "bonferroni")
 
   #only return the genes where adj_p_A_or_B < 0.05 and where at least one has amplitude > cutoff.
-  results <- results[(results$adj_p_val_A_or_B < rhythm_fdr) &
+  results <- results[(results$bonf_adj_p_val_A_or_B < rhythm_bonf_cutoff) &
                       (results$max_amp >= amp_cutoff), ]
 
   assertthat::assert_that(assertthat::not_empty(results),
