@@ -72,7 +72,7 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
 
   adj_pval <- p.adjust(rhythmic_in_either, method = "fdr") #adjustment made for all genes, not just the subset that are
                                                            #rhythmic in either condition
-
+  
   results <- compute_model_params(fit_coeffs, group_id, type = "coef")
 
   results <- data.frame(results)
@@ -95,6 +95,8 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
                           results[, paste0(group_id[2], "_amp")])
 
   results$adj_p_val_A_or_B <- adj_pval
+  results$p_val_A_or_B <- rhythmic_in_either
+  results$bonf_adj_p_val_A_or_B <- p.adjust(rhythmic_in_either, method = "bonferroni")
 
   #only return the genes where adj_p_A_or_B < 0.05 and where at least one has amplitude > cutoff.
   results <- results[(results$adj_p_val_A_or_B < rhythm_fdr) &
@@ -116,9 +118,9 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
 
   results$adj_p_val_DR <- stats::p.adjust(diff_rhy_results,
                                           method = "BH")
-  results$p_val_DR <- diff_rhy_results
-  results$adj_p_val_DR_bonf <- stats::p.adjust(diff_rhy_results,
-                        method = "bonferroni")
+#   results$p_val_DR <- diff_rhy_results
+#   results$adj_p_val_DR_bonf <- stats::p.adjust(diff_rhy_results,
+#                         method = "bonferroni")
   results$diff_rhythmic <- results$adj_p_val_DR < compare_fdr
 
   results$rhythmic_in_A <- results[, paste0(group_id[1], "_amp")] > amp_cutoff
