@@ -116,6 +116,9 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_fdr,
 
   results$adj_p_val_DR <- stats::p.adjust(diff_rhy_results,
                                           method = "BH")
+  results$p_val_DR <- diff_rhy_results
+  results$adj_p_val_DR_Bonf <- stats::p.adjust(diff_rhy_results,
+                        method = "bonferroni")
   results$diff_rhythmic <- results$adj_p_val_DR < compare_fdr
 
   results$rhythmic_in_A <- results[, paste0(group_id[1], "_amp")] > amp_cutoff
