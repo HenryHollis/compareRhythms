@@ -7,7 +7,7 @@
 
 compareRhythms_cosinor <- function(data, exp_design, period, rhythm_bonf_cutoff,
                                  compare_fdr, amp_cutoff, just_classify, longitudinal) {
-
+  rownames(data) = gsub("\\-", "\\.", rownames(data))
   group_id <- base::levels(exp_design$group)
 
   exp_design <- base::cbind(exp_design,
