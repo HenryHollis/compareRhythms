@@ -115,7 +115,7 @@ compareRhythms_cosinor <- function(data, exp_design, period, rhythm_bonf_cutoff,
   names(diff_rhy_results) <- rownames(data)
 
   diff_rhy_results <- diff_rhy_results[results$id]
-
+  results$p_val_DR = diff_rhy_results
   results$adj_p_val_DR <- stats::p.adjust(diff_rhy_results,
                                           method = "BH")
 #   results$p_val_DR <- diff_rhy_results
